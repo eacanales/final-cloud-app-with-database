@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 # <HINT> Import any new Models here
-from .models import Course, Enrollment
+from .models import Course, Enrollment, Question, Choice, Submission
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
@@ -63,7 +63,7 @@ def logout_request(request):
 def check_if_enrolled(user, course):
     is_enrolled = False
     if user.id is not None:
-        # Check if user enrolled
+        # Check if user enrolled ojo!
         num_results = Enrollment.objects.filter(user=user, course=course).count()
         if num_results > 0:
             is_enrolled = True
@@ -153,7 +153,7 @@ def show_exam_result(request, course_id, submission_id):
     context['course'] = course
     context['grade'] = exam_score
     context['choices'] = choices
-
+    # question_grade was move to grade
     return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
 
 
